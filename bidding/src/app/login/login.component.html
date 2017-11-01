@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+</head>
+<body> 
+    <h1>Login</h1>
+    <form (submit)="onSubmit()" #formData='ngForm'>
+        Your Name: <input name='name'
+        class='long'
+        type="text"
+        required
+        minlength="3"
+        [(ngModel)]="loginobject.name"
+        />
+        <br>
+        <input class='green' [disabled]='formData.invalid' type="submit" value="Login">
+    </form> 
+    
+</body>
+</html> 

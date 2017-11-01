@@ -1,0 +1,68 @@
+<style>
+  .productBox{
+    display: inline-block;
+    width: 200px;
+    /* height: 200px; */
+    border: 1px solid  black;
+    vertical-align: top;
+  }
+  button{
+    display: block;
+  }
+</style>
+
+<a><span (click) = "logout()"><button type="button" class="logout">Logout</button></span></a>
+<h1>Bid Now!</h1>
+
+<div class="productBox">
+  <form (submit)="bidding()" #formData='ngForm'>
+    <h3>Mackbook</h3>
+    <input name= 'bidAmount' type="number" required minlength="1"  [(ngModel)] = "product.product1.amount" #bid='ngModel'/> <br>
+    <span *ngIf="bid.invalid && (bid.dirty || bid.touched)"> 
+      <span *ngIf="bid.errors.required" [ngStyle]="{'color': 'red'}">Bid is required.</span>  
+    </span>
+    <span *ngIf="product.product1.amount < winner1.product1.amount" [ngStyle]="{'color': 'red'}">Bid amount should be higher than the previous bid.</span>
+      <input  [disabled]='winner1.product1.amount > product.product1.amount ' type="submit" value="Bid"/> 
+  </form>
+  <br>
+  <div>
+    Current Bids: 
+    {{winner1.product1.amount}}
+    <div *ngFor='let j of allBids' >
+      <p *ngIf='j.product1.amount > 0 '>{{j.creator}}: ${{j.product1.amount}} {{winner1.product1.amount}}</p>
+    </div>
+  </div>
+</div>  
+
+<div class="productBox">
+  <form (submit) = 'bidding()'>
+    <h3>Watch</h3>
+    <input type="number" name="bidAmount" required minlength="1" [(ngModel)]='product.product2.amount'> <br>
+    <input type="submit" type="submit" value="Bid!">
+  </form>
+  <br>
+  <div>
+      Current Bids:
+      <div *ngFor='let r of allBids'>
+        <p *ngIf='r.product2.amount > 0'>{{r.creator}}: ${{r.product2.amount}}</p>
+      </div>
+    </div>
+</div>
+
+<div class="productBox">
+  <form (submit) = 'bidding()'>
+    <h3>Watch</h3>
+    <input type="number" name="bidAmount" required minlength="1"  [(ngModel)]='product.product3.amount'>
+     <br>
+    <input type="submit" type="submit" value="Bid!">
+  </form>
+  <br>
+  <div>
+      Current Bids:
+      <div *ngFor='let r of allBids'>
+        <p *ngIf='r.product3.amount > 0'>{{r.creator}}: ${{r.product3.amount}}</p>
+      </div>
+    </div>
+</div>
+
+<button (click)='endBid()'>End Bid</button>
